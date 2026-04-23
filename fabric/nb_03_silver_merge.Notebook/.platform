@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_03_silver_merge",
+    "description": "Stub — bronze → silver MERGE with deduplication and type-casting."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a7b8daab-4fd7-4c93-bf91-282f3d52a56f"
+  }
+}

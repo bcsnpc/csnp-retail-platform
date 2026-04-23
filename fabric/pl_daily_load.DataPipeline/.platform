@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_daily_load",
+    "description": "Stub — orchestrates daily bronze→silver→gold→DQ; currently just a 1s Wait."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8e9e7374-39ef-4be4-9808-18c49335b5ef"
+  }
+}

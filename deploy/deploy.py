@@ -38,7 +38,7 @@ ENV_TO_WORKSPACE_VAR = {
     "prod": "FABRIC_WORKSPACE_PROD_ID",
 }
 
-ITEM_TYPES_IN_SCOPE = ["Lakehouse"]
+ITEM_TYPES_IN_SCOPE = ["Lakehouse", "Notebook", "Environment", "DataPipeline"]
 
 log = logging.getLogger("deploy")
 

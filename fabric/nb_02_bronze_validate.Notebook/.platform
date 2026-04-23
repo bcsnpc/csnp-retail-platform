@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_02_bronze_validate",
+    "description": "Stub — validates bronze landing files (schema, row counts, freshness)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e7a701fc-5e62-48b5-9b90-031b58e03ec1"
+  }
+}

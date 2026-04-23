@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Environment",
+    "displayName": "csnp_env",
+    "description": "Spark environment for CSNP retail pipelines — runtime 1.3 + delta/GE/polars."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "924b6ea6-00dc-4c7d-a156-738605d27dc6"
+  }
+}
