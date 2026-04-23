@@ -34,6 +34,10 @@ data/
 # Manifests (runtime state)
 manifest.json
 
+# fabric-cicd run logs (auto-generated in cwd on each deploy)
+fabric_cicd.*.log
+fabric_cicd.error.log
+
 # IDE
 .vscode/
 .idea/

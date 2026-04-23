@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "CSNP_Gold",
+    "description": "Gold layer — star schema for reporting and the Fabric POC reporting layer."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "777cfb6b-48df-4214-bece-089bc60799b4"
+  }
+}
