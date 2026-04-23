@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "CSNP_Bronze",
+    "description": "Bronze layer — raw landing zone for source-system extracts."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f50eae37-01d8-45c4-b0e9-15d7e5063142"
+  }
+}

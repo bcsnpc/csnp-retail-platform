@@ -1,0 +1,32 @@
+# fabric-cicd parameterization rules.
+#
+# Schema reference: https://microsoft.github.io/fabric-cicd/latest/how_to/parameterization/
+#
+# Environment keys (DEV / TEST / PROD) are case-sensitive and must match the
+# `environment` argument passed to FabricWorkspace by deploy.deploy.
+#
+# This file is intentionally minimal for the initial Lakehouse-only deploy —
+# Lakehouses don't carry workspace- or environment-specific IDs in their
+# .platform files, so no replacements are needed yet.  Sections below are
+# placeholders showing the structure for when notebooks, pipelines, and
+# semantic models land.
+
+find_replace: []
+# Example shape for future notebook deployments:
+#   - find_value: "00000000-0000-0000-0000-000000000000"
+#     replace_value:
+#       DEV:  "$items.Lakehouse.CSNP_Bronze.id"
+#       TEST: "$items.Lakehouse.CSNP_Bronze.id"
+#       PROD: "$items.Lakehouse.CSNP_Bronze.id"
+#     is_regex: "false"
+#     item_type: "Notebook"
+#     file_path: "/<NotebookName>.Notebook/notebook-content.py"
+
+key_value_replace: []
+# Example shape for future VariableLibrary or DataPipeline parameterization:
+#   - find_key: $.variables[?(@.name=="environment_name")].value
+#     replace_value:
+#       DEV:  "DEV"
+#       TEST: "TEST"
+#       PROD: "PROD"
+#     item_type: "VariableLibrary"

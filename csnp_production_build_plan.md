@@ -112,7 +112,6 @@ csnp-retail-platform/
 ├── LICENSE                           # MIT
 ├── pyproject.toml                    # uv-managed workspace root
 ├── uv.lock
-├── parameter.yml                     # fabric-cicd parameterization
 │
 ├── generator/                        # the synthetic data generator
 │   ├── pyproject.toml
@@ -143,6 +142,7 @@ csnp-retail-platform/
 │
 ├── fabric/                           # Git-integrated with Fabric workspace
 │   ├── .platform                     # Fabric workspace metadata
+│   ├── parameter.yml                 # fabric-cicd parameterization (DEV/TEST/PROD)
 │   ├── CSNP_Bronze.Lakehouse/
 │   ├── CSNP_Silver.Lakehouse/
 │   ├── CSNP_Gold.Lakehouse/

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "CSNP_Silver",
+    "description": "Silver layer — conformed, deduplicated, type-cast tables."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e3d855a6-2cbb-492c-8a48-a023c7ecfc80"
+  }
+}
