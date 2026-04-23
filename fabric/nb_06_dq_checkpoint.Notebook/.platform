@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_06_dq_checkpoint",
+    "description": "Stub — runs Great Expectations checkpoint over gold tables."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "220ce5ff-40f6-4a00-bb08-2f0f09fa6a36"
+  }
+}

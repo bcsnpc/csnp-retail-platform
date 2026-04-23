@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_04_gold_dims",
+    "description": "Stub — silver → gold dimension build (SCD2 for product, customer)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "90fbab8a-36bc-4b5b-9bfe-c5a501dce0fd"
+  }
+}

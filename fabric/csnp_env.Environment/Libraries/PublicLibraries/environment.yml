@@ -1,0 +1,5 @@
+dependencies:
+  - pip:
+      - delta-spark
+      - great_expectations[fabric]
+      - polars

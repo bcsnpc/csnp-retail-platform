@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_99_backfill",
+    "description": "Stub — one-time 3-year historical backfill (xs/s/m/l scale)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "41a07410-7f06-459f-9b3a-9644eaa87ce2"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_05_gold_facts",
+    "description": "Stub — silver → gold fact build (sales, returns, sessions, etc.)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "fea26d16-cc77-4443-823c-5aaf3db1f741"
+  }
+}
