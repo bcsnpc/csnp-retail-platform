@@ -16,7 +16,7 @@
 # normalization on date_key. UTC timestamp handling is reserved for fact tables that
 # carry event timestamps; dims flow through unchanged.
 
-workspace_name: str = "CSNP Workspace Dev"
+workspace_name: str = "CSNP_Dev"
 bronze_lakehouse: str = "CSNP_Bronze"
 bronze_input_subpath: str = "bronze/dim_date/dim_date.parquet"
 silver_table_fqn: str = "CSNP_Silver.silver_dim_date"
