@@ -10,7 +10,7 @@ from __future__ import annotations
 import datetime
 import logging
 from pathlib import Path
-from typing import Annotated, Optional
+from typing import Annotated
 
 import typer
 
@@ -46,10 +46,10 @@ def generate(
     scale: Annotated[Scale, typer.Option("--scale", help="xs / s / m / l")] = Scale.m,
     out: Annotated[Path, typer.Option("--out", help="Output directory")] = Path("./data"),
     seed: Annotated[int, typer.Option("--seed", help="RNG seed (deterministic)")] = 42,
-    start: Annotated[Optional[str], typer.Option("--start", help="YYYY-MM-DD")] = None,
-    end: Annotated[Optional[str], typer.Option("--end", help="YYYY-MM-DD")] = None,
-    target_date: Annotated[Optional[str], typer.Option("--date", help="YYYY-MM-DD")] = None,
-    seed_file: Annotated[Optional[Path], typer.Option("--seed-file")] = None,
+    start: Annotated[str | None, typer.Option("--start", help="YYYY-MM-DD")] = None,
+    end: Annotated[str | None, typer.Option("--end", help="YYYY-MM-DD")] = None,
+    target_date: Annotated[str | None, typer.Option("--date", help="YYYY-MM-DD")] = None,
+    seed_file: Annotated[Path | None, typer.Option("--seed-file")] = None,
 ) -> None:
     """Generate CSNP & Co. synthetic retail data."""
     from csnp_retail.runner import run_backfill, run_daily

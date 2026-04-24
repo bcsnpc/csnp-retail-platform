@@ -8,7 +8,7 @@ Fiscal year convention: April 1 start, named after the calendar year it ends in.
 from __future__ import annotations
 
 import datetime
-from typing import Generator
+from collections.abc import Generator
 
 import holidays
 import pandas as pd
