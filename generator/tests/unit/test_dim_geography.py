@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import pytest
-
 
 class TestRowCount:
     def test_minimum_rows(self, dim_geo_df):

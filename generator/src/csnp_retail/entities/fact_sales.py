@@ -10,7 +10,7 @@ Channel mix shifts linearly over the 3-year window:
 
 from __future__ import annotations
 
-from datetime import date, timedelta
+from datetime import date
 
 import numpy as np
 import pandas as pd
@@ -73,9 +73,6 @@ def build_fact_sales(
     date_keys  = dim_date["date_key"].values[date_idx]
     dates_dt   = pd.to_datetime(dim_date["date"].values[date_idx])
     dates_py   = np.array([ts.date() for ts in dates_dt])
-
-    # Promo window flag per sale
-    is_promo = dim_date["is_promo_window"].values[date_idx]
 
     # fractional position in backfill [0,1]
     t_vals = np.array([(d - start).days for d in dates_py], dtype=float) / span_days

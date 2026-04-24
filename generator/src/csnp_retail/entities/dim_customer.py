@@ -6,7 +6,7 @@ producing a second row for those customers.
 
 from __future__ import annotations
 
-from datetime import date, timedelta
+from datetime import timedelta
 
 import numpy as np
 import pandas as pd

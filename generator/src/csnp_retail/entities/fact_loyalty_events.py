@@ -106,7 +106,6 @@ def build_fact_loyalty_events(
     redeemers = cust_totals[cust_totals > _MIN_REDEEM].index
 
     redeem_rows: list[dict] = []
-    date_key_arr = dim_date["date_key"].values
 
     for ck in redeemers:
         total = int(cust_totals[ck])

@@ -18,7 +18,7 @@ from datetime import date, timedelta
 import numpy as np
 import pandas as pd
 
-from csnp_retail.config import BACKFILL_END, GeneratorConfig
+from csnp_retail.config import GeneratorConfig
 
 # ── Return-rate configuration ─────────────────────────────────────────────────
 

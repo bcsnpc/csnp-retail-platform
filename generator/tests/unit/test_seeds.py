@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from datetime import date
 
-import pytest
-
 from csnp_retail.patterns import derive_seed
 
 

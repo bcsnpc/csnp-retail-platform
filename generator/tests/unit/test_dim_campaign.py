@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import pandas as pd
-import pytest
 
 from csnp_retail.config import BACKFILL_END, BACKFILL_START
 

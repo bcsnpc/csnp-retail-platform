@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 
 import pytest
 
@@ -11,14 +11,13 @@ from csnp_retail.config import Scale
 from csnp_retail.manifest import IdWatermarks, Manifest, TimelineState
 from csnp_retail.patterns import module_version
 
-
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _minimal_manifest() -> Manifest:
     return Manifest(
         seed=42,
         scale=Scale.xs,
-        generated_at=datetime(2026, 4, 21, 10, 0, 0, tzinfo=timezone.utc),
+        generated_at=datetime(2026, 4, 21, 10, 0, 0, tzinfo=UTC),
         timeline=TimelineState(
             backfill_start=date(2023, 4, 1),
             backfill_end=date(2026, 3, 31),
@@ -33,7 +32,7 @@ def _full_manifest() -> Manifest:
     return Manifest(
         seed=42,
         scale=Scale.xs,
-        generated_at=datetime(2026, 4, 21, 10, 0, 0, tzinfo=timezone.utc),
+        generated_at=datetime(2026, 4, 21, 10, 0, 0, tzinfo=UTC),
         timeline=TimelineState(
             backfill_start=date(2023, 4, 1),
             backfill_end=date(2026, 3, 31),
@@ -147,7 +146,7 @@ class TestIdWatermarks:
         m = Manifest(
             seed=1,
             scale=Scale.xs,
-            generated_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+            generated_at=datetime(2026, 1, 1, tzinfo=UTC),
             timeline=TimelineState(
                 backfill_start=date(2023, 4, 1),
                 backfill_end=date(2026, 3, 31),
@@ -177,8 +176,8 @@ class TestModuleVersion:
         assert module_version() == module_version()
 
     def test_changes_if_content_changes(self, tmp_path, monkeypatch):
+
         import csnp_retail.patterns as pat_mod
-        from pathlib import Path
 
         # Point __file__ at a temp file with different content
         fake = tmp_path / "fake_patterns.py"
