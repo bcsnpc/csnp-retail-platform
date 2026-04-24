@@ -19,8 +19,9 @@
 workspace_name: str = "CSNP Workspace Dev"
 bronze_lakehouse: str = "CSNP_Bronze"
 silver_lakehouse: str = "CSNP_Silver"
-bronze_input_subpath: str = "dim_date.parquet"
+bronze_input_subpath: str = "bronze/dim_date/dim_date.parquet"
 silver_table_name: str = "dim_date"
+silver_table_fqn: str = "CSNP_Silver.silver_dim_date"
 source_system: str = "generator"
 
 # CELL ********************
@@ -51,7 +52,13 @@ print(f"Silver target: {silver_path}")
 
 # CELL ********************
 
-def merge_to_silver(source_df, silver_table_path: str, business_keys: list[str], strategy: str):
+def merge_to_silver(
+    source_df,
+    silver_table_path: str,
+    target_table_fqn: str,
+    business_keys: list[str],
+    strategy: str,
+):
     if strategy == "scd2":
         raise NotImplementedError(
             "SCD2 merge is reserved for dim_product and dim_customer. "
@@ -63,7 +70,7 @@ def merge_to_silver(source_df, silver_table_path: str, business_keys: list[str],
         raise ValueError(f"Unknown strategy: {strategy!r}. Supported: 'scd1', 'scd2'.")
 
     if not DeltaTable.isDeltaTable(spark, silver_table_path):
-        source_df.write.format("delta").mode("overwrite").save(silver_table_path)
+        source_df.write.format("delta").mode("overwrite").saveAsTable(target_table_fqn)
         return {"action": "initial_write", "rows_written": source_df.count()}
 
     target = DeltaTable.forPath(spark, silver_table_path)
@@ -96,6 +103,7 @@ silver_df = (
 result = merge_to_silver(
     source_df=silver_df,
     silver_table_path=silver_path,
+    target_table_fqn=silver_table_fqn,
     business_keys=["date_key"],
     strategy="scd1",
 )
