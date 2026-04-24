@@ -7,7 +7,7 @@ needed to resume; do not track per-record ingestion history.
 
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 from pydantic import BaseModel, Field
@@ -44,7 +44,7 @@ class Manifest(BaseModel):
     seed: int
     scale: Scale
     generated_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc)
+        default_factory=lambda: datetime.now(UTC)
     )
     timeline: TimelineState
     id_watermarks: IdWatermarks
@@ -57,5 +57,5 @@ class Manifest(BaseModel):
         path.write_text(self.model_dump_json(indent=2))
 
     @classmethod
-    def load(cls, path: Path) -> "Manifest":
+    def load(cls, path: Path) -> Manifest:
         return cls.model_validate_json(path.read_text())

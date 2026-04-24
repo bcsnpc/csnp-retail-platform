@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-import pandas as pd
-import pytest
-
 
 class TestRowCount:
     def test_at_least_n_products_skus(self, dim_product_df, xs_config):

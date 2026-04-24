@@ -9,9 +9,8 @@ Skipped by default in unit test runs; run with:
 
 from __future__ import annotations
 
-import pytest
-from pathlib import Path
 import pandas as pd
+import pytest
 
 from csnp_retail.config import GeneratorConfig, Scale
 from csnp_retail.runner import run_backfill

@@ -9,10 +9,11 @@ Verifies:
 
 from __future__ import annotations
 
-import pandas as pd
-import pytest
 from datetime import date, timedelta
 from pathlib import Path
+
+import pandas as pd
+import pytest
 
 from csnp_retail.config import GeneratorConfig, Scale
 from csnp_retail.manifest import Manifest

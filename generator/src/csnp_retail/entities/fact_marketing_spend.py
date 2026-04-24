@@ -74,7 +74,6 @@ def build_fact_marketing_spend(
     dim_campaign: pd.DataFrame,
     dim_date: pd.DataFrame,
 ) -> pd.DataFrame:
-    date_key_set = set(dim_date["date_key"].values)
     date_key_arr = dim_date["date_key"].values
 
     def _date_range_keys(start: object, end: object) -> list[int]:

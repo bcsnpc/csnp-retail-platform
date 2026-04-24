@@ -16,7 +16,6 @@ build/
 .venv/
 venv/
 .uv/
-uv.lock
 
 # Pytest / coverage
 .pytest_cache/
