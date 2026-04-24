@@ -11,16 +11,18 @@
 # placeholders showing the structure for when notebooks, pipelines, and
 # semantic models land.
 
-find_replace: []
-# Example shape for future notebook deployments:
-#   - find_value: "00000000-0000-0000-0000-000000000000"
-#     replace_value:
-#       DEV:  "$items.Lakehouse.CSNP_Bronze.id"
-#       TEST: "$items.Lakehouse.CSNP_Bronze.id"
-#       PROD: "$items.Lakehouse.CSNP_Bronze.id"
-#     is_regex: "false"
-#     item_type: "Notebook"
-#     file_path: "/<NotebookName>.Notebook/notebook-content.py"
+find_replace:
+  # Substitute the workspace_name parameter cell assignment per environment.
+  # Matches only the exact parameter assignment line — not variable names or
+  # comments that happen to include "CSNP_Dev".  Scoped to Notebook items only.
+  # Lakehouse display names (CSNP_Bronze, CSNP_Silver, CSNP_Gold) are identical
+  # across all three workspaces by design and require no substitution.
+  - find_value: 'workspace_name: str = "CSNP_Dev"'
+    replace_value:
+      DEV:  'workspace_name: str = "CSNP_Dev"'
+      TEST: 'workspace_name: str = "CSNP_Test"'
+      PROD: 'workspace_name: str = "CSNP_Prod"'
+    item_type: "Notebook"
 
 key_value_replace: []
 # Example shape for future VariableLibrary or DataPipeline parameterization:
