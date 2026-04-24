@@ -17,17 +17,27 @@ from faker import Faker
 
 from csnp_retail.config import GeneratorConfig
 from csnp_retail.entities.dim_customer import (
-    _ACQN_CHANNELS, _ACQN_WEIGHTS,
-    _GENDERS, _GENDER_WEIGHTS,
-    _INITIAL_TIER_WEIGHTS, _SEGMENTS, _TIERS,
+    _ACQN_CHANNELS,
+    _ACQN_WEIGHTS,
+    _GENDER_WEIGHTS,
+    _GENDERS,
+    _INITIAL_TIER_WEIGHTS,
+    _SEGMENTS,
+    _TIERS,
 )
 from csnp_retail.entities.fact_inventory_daily import (
-    _FORMAT_CAPACITY, _SEASONAL_STOCK, _STOCKOUT_PROB,
-    _TX_HEAT_START, _TX_HEAT_END,
+    _FORMAT_CAPACITY,
+    _SEASONAL_STOCK,
+    _STOCKOUT_PROB,
+    _TX_HEAT_END,
+    _TX_HEAT_START,
 )
 from csnp_retail.entities.fact_marketing_spend import (
-    _CAMPAIGN_CHANNELS, _CTR, _IMPRESSIONS_PER_DOLLAR,
-    _REVENUE_ROI, _SPEND_RANGE,
+    _CAMPAIGN_CHANNELS,
+    _CTR,
+    _IMPRESSIONS_PER_DOLLAR,
+    _REVENUE_ROI,
+    _SPEND_RANGE,
 )
 from csnp_retail.io import read_parquet, write_parquet
 from csnp_retail.manifest import Manifest
@@ -160,7 +170,6 @@ def build_daily_sales(
         pd.isnull(s_close_raw) | (pd.to_datetime(pd.Series(s_close_raw)).values >= target_ts)
     )
     open_stores  = dim_store["store_key"].values[open_mask].astype(np.int64)
-    open_states  = dim_store["state_code"].values[open_mask]
     open_curr    = dim_store["currency_code"].values[open_mask]
 
     store_keys_out = np.zeros(n, dtype=np.int64)
@@ -282,36 +291,36 @@ def build_daily_sessions(
     u_ch = rng.random(n)
     channel_keys = np.where(u_ch < 0.65, 2, 3).astype(np.int64)
 
-    _DEV_BY_CH: dict[int, dict] = {
+    dev_by_ch: dict[int, dict] = {
         2: {"Mobile": 0.52, "Desktop": 0.37, "Tablet": 0.11},
         3: {"Mobile": 0.82, "Tablet": 0.14, "Desktop": 0.04},
     }
     devices = np.empty(n, dtype=object)
-    for ch, dist in _DEV_BY_CH.items():
+    for ch, dist in dev_by_ch.items():
         mask = channel_keys == ch
         names = list(dist.keys())
         probs = np.array(list(dist.values()), dtype=float)
         probs /= probs.sum()
         devices[mask] = rng.choice(names, size=int(mask.sum()), p=probs)
 
-    _CONV = {"Desktop": 0.28, "Tablet": 0.20, "Mobile": 0.14}
-    is_converted = rng.random(n) < np.array([_CONV[d] for d in devices])
+    conv = {"Desktop": 0.28, "Tablet": 0.20, "Mobile": 0.14}
+    is_converted = rng.random(n) < np.array([conv[d] for d in devices])
 
-    _PAGES = {2: (5.2, 3.4), 3: (3.1, 1.8)}
-    _TIME = {
+    pages_cfg = {2: (5.2, 3.4), 3: (3.1, 1.8)}
+    time_cfg = {
         "Desktop-2": (210, 130), "Mobile-2": (140, 100), "Tablet-2": (185, 120),
         "Desktop-3": (125, 80),  "Mobile-3": (95,  60),  "Tablet-3": (110, 70),
     }
     pages_viewed = np.zeros(n, dtype=np.int64)
     time_on_site = np.zeros(n, dtype=np.int64)
     for ch in (2, 3):
-        mu_p, sd_p = _PAGES[ch]
+        mu_p, sd_p = pages_cfg[ch]
         for dev in ("Mobile", "Desktop", "Tablet"):
             dm = (channel_keys == ch) & (devices == dev)
             cnt = int(dm.sum())
             if cnt == 0:
                 continue
-            mu_t, sd_t = _TIME[f"{dev}-{ch}"]
+            mu_t, sd_t = time_cfg[f"{dev}-{ch}"]
             pages_viewed[dm] = np.clip(rng.normal(mu_p, sd_p, cnt).round().astype(int), 1, 50)
             time_on_site[dm] = np.clip(rng.normal(mu_t, sd_t, cnt).round().astype(int), 5, 3600)
 
@@ -519,9 +528,9 @@ def build_daily_crm(
             })
             ek += 1
 
-    _COLS = ["event_key", "date_key", "customer_key", "event_type",
-             "points_delta", "balance_after", "sale_key"]
-    loyalty_events = pd.DataFrame(event_rows) if event_rows else pd.DataFrame(columns=_COLS)
+    cols = ["event_key", "date_key", "customer_key", "event_type",
+            "points_delta", "balance_after", "sale_key"]
+    loyalty_events = pd.DataFrame(event_rows) if event_rows else pd.DataFrame(columns=cols)
     if len(loyalty_events) > 0:
         loyalty_events["sale_key"] = pd.array(loyalty_events["sale_key"].values, dtype="Int64")
 
@@ -535,13 +544,13 @@ def build_daily_marketing(
     dims: dict[str, pd.DataFrame],
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Return (campaigns_active_today, spend_rows) for target_date."""
-    _SPEND_COLS = [
+    spend_cols = [
         "spend_key", "campaign_key", "channel_key", "date_key",
         "planned_spend", "actual_spend", "impressions", "clicks", "revenue_attributed",
     ]
     dim_campaign = dims.get("dim_campaign", pd.DataFrame())
     if len(dim_campaign) == 0:
-        return pd.DataFrame(), pd.DataFrame(columns=_SPEND_COLS)
+        return pd.DataFrame(), pd.DataFrame(columns=spend_cols)
 
     cs = pd.to_datetime(dim_campaign["start_date"]).dt.date.values
     ce = pd.to_datetime(dim_campaign["end_date"]).dt.date.values
@@ -582,7 +591,7 @@ def build_daily_marketing(
             })
 
     if not rows:
-        return active, pd.DataFrame(columns=_SPEND_COLS)
+        return active, pd.DataFrame(columns=spend_cols)
 
     spend_df = pd.DataFrame(rows)
     spend_df.insert(0, "spend_key", range(start_sk, start_sk + len(spend_df)))

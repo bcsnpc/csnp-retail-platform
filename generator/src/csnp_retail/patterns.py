@@ -76,12 +76,7 @@ def apply_tx_heat_event(sales: pd.DataFrame) -> pd.DataFrame:
 
 def apply_meridian_cable_spike(sales: pd.DataFrame) -> pd.DataFrame:
     """Meridian Cable Crew cardigan: 9× volume spike in Jul 2025."""
-    mask = (
-        (sales["product_name"].str.contains("Meridian Cable Crew", na=False))
-        & (sales["order_date"] >= "2025-07-01")
-        & (sales["order_date"] <= "2025-07-31")
-    )
-    # Spike is injected at generation time; this function validates / amplifies.
+    # Spike is injected at generation time via weighted sampling in fact_sales.
     return sales
 
 
