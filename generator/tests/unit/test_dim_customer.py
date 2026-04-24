@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-import pandas as pd
-import pytest
-
 
 class TestRowCount:
     def test_current_rows_equal_n_customers(self, dim_customer_df, xs_config):

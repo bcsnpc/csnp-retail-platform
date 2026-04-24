@@ -13,7 +13,6 @@ from csnp_retail.entities.dim_date import (
     _fiscal_quarter,
     _fiscal_year,
     _season,
-    build_dim_date,
 )
 
 _EXPECTED_DAYS = (BACKFILL_END - BACKFILL_START).days + 1  # 1096
@@ -96,14 +95,12 @@ class TestHolidaysAndPromos:
         assert july4["is_holiday"]
 
     def test_promo_nulls_on_non_promo_day(self, dim_date_df):
-        import pandas as pd
         # Jun 10 sits between Spring New Arrivals (ends Apr 15) and Summer Sale (starts Jun 15)
         row = dim_date_df[dim_date_df["date_key"] == 20240610].iloc[0]
         if not row["is_promo_window"]:
             assert pd.isna(row["promo_name"])
 
     def test_holiday_name_null_on_non_holiday(self, dim_date_df):
-        import pandas as pd
         row = dim_date_df[dim_date_df["date_key"] == 20230405].iloc[0]
         if not row["is_holiday"]:
             assert pd.isna(row["holiday_name"])
