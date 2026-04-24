@@ -18,9 +18,7 @@
 
 workspace_name: str = "CSNP Workspace Dev"
 bronze_lakehouse: str = "CSNP_Bronze"
-silver_lakehouse: str = "CSNP_Silver"
 bronze_input_subpath: str = "bronze/dim_date/dim_date.parquet"
-silver_table_name: str = "dim_date"
 silver_table_fqn: str = "CSNP_Silver.silver_dim_date"
 source_system: str = "generator"
 
@@ -37,24 +35,15 @@ def onelake_files_path(workspace: str, lakehouse: str, subpath: str) -> str:
     )
 
 
-def onelake_tables_path(workspace: str, lakehouse: str, table_name: str) -> str:
-    return (
-        f"abfss://{workspace}@onelake.dfs.fabric.microsoft.com/"
-        f"{lakehouse}.Lakehouse/Tables/{table_name}"
-    )
-
-
 bronze_path = onelake_files_path(workspace_name, bronze_lakehouse, bronze_input_subpath)
-silver_path = onelake_tables_path(workspace_name, silver_lakehouse, silver_table_name)
 
 print(f"Bronze input : {bronze_path}")
-print(f"Silver target: {silver_path}")
+print(f"Silver target: {silver_table_fqn}")
 
 # CELL ********************
 
 def merge_to_silver(
     source_df,
-    silver_table_path: str,
     target_table_fqn: str,
     business_keys: list[str],
     strategy: str,
@@ -69,11 +58,11 @@ def merge_to_silver(
     if strategy != "scd1":
         raise ValueError(f"Unknown strategy: {strategy!r}. Supported: 'scd1', 'scd2'.")
 
-    if not DeltaTable.isDeltaTable(spark, silver_table_path):
+    if not DeltaTable.isDeltaTable(spark, target_table_fqn):
         source_df.write.format("delta").mode("overwrite").saveAsTable(target_table_fqn)
         return {"action": "initial_write", "rows_written": source_df.count()}
 
-    target = DeltaTable.forPath(spark, silver_table_path)
+    target = DeltaTable.forName(spark, target_table_fqn)
     match_condition = " AND ".join(f"t.{k} = s.{k}" for k in business_keys)
     (
         target.alias("t")
@@ -102,7 +91,6 @@ silver_df = (
 
 result = merge_to_silver(
     source_df=silver_df,
-    silver_table_path=silver_path,
     target_table_fqn=silver_table_fqn,
     business_keys=["date_key"],
     strategy="scd1",
@@ -111,7 +99,7 @@ print(result)
 
 # CELL ********************
 
-silver_out = spark.read.format("delta").load(silver_path)
+silver_out = spark.table(silver_table_fqn)
 print(f"Silver row count: {silver_out.count():,}")
 
 (
