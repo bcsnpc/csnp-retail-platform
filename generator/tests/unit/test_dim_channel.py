@@ -23,10 +23,10 @@ class TestValues:
         store = dim_channel_df[dim_channel_df["channel_name"] == "Store"]
         assert len(store) == 1
         assert store.iloc[0]["channel_type"] == "Physical"
-        assert store.iloc[0]["is_digital"] is False or store.iloc[0]["is_digital"] == False
+        assert not store.iloc[0]["is_digital"]
 
     def test_digital_channels(self, dim_channel_df):
-        digital = dim_channel_df[dim_channel_df["is_digital"] == True]
+        digital = dim_channel_df[dim_channel_df["is_digital"]]
         assert set(digital["channel_name"]) == {"Web", "App", "Marketplace"}
 
     def test_channel_names_unique(self, dim_channel_df):

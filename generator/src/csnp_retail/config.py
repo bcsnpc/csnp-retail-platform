@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import date
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
 
 from pydantic import BaseModel, Field
@@ -12,14 +12,14 @@ BACKFILL_START = date(2023, 4, 1)
 BACKFILL_END = date(2026, 3, 31)
 
 
-class Scale(str, Enum):
+class Scale(StrEnum):
     xs = "xs"
     s = "s"
     m = "m"
-    l = "l"
+    l = "l"  # noqa: E741
 
 
-class Mode(str, Enum):
+class Mode(StrEnum):
     backfill = "backfill"
     daily = "daily"
 

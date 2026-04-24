@@ -10,13 +10,12 @@ Format mix: Flagship / Standard / Outlet / Pop-up.
 
 from __future__ import annotations
 
-import calendar
 import datetime
 
 import numpy as np
 import pandas as pd
 
-from csnp_retail.config import GeneratorConfig, Scale
+from csnp_retail.config import GeneratorConfig
 from csnp_retail.faker_pools import (
     CLIMATE_ZONES,
     DISTRICTS,
@@ -149,7 +148,6 @@ def build_dim_store(
 
     # Build a flat list of (country_code, format_type) for each store slot
     # Distribute formats roughly uniformly across countries
-    slots: list[tuple[str, str]] = []
     fmt_pool = []
     for fmt, cnt in fmt_counts.items():
         fmt_pool.extend([fmt] * cnt)
