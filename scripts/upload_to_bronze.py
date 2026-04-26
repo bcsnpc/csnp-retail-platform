@@ -83,7 +83,7 @@ def main() -> int:
         if not local.exists():
             print(f"ERROR: {local} not found", file=sys.stderr)
             return 1
-        print(f"Uploading: {local}  →  {args.workspace}/{args.lakehouse}.Lakehouse/{args.remote}")
+        print(f"Uploading: {local}  ->  {args.workspace}/{args.lakehouse}.Lakehouse/{args.remote}")
         _upload(service, args.workspace, args.lakehouse, local, args.remote)
 
     print("All done.")
