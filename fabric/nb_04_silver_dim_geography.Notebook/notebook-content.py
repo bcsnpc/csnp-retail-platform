@@ -14,7 +14,7 @@ workspace_name: str = "CSNP_Dev"
 bronze_lakehouse: str = "CSNP_Bronze"
 bronze_input_subpath: str = "bronze/dim_geography/dim_geography.parquet"
 silver_table_fqn: str = "CSNP_Silver.silver_dim_geography"
-business_keys: list[str] = ["geography_key"]
+business_keys: list[str] = ["geo_key"]
 source_system: str = "generator"
 
 # CELL ********************
