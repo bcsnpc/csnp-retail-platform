@@ -22,7 +22,7 @@ jobs:
           enable-cache: true
           python-version: "3.12"
       - run: uv sync --all-packages
-      - run: uv run ruff check generator/src generator/tests
+      - run: uv run ruff check generator/src generator/tests helpers/src helpers/tests
 
   test:
     name: Test
@@ -35,4 +35,4 @@ jobs:
           enable-cache: true
           python-version: "3.12"
       - run: uv sync --all-packages
-      - run: uv run pytest generator/tests -q -m "not fabric_integration"
+      - run: uv run pytest generator/tests helpers/tests -q -m "not fabric_integration"
