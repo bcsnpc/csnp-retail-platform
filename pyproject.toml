@@ -18,7 +18,7 @@ build-backend = "hatchling.build"
 packages = ["deploy"]
 
 [tool.uv.workspace]
-members = ["generator"]
+members = ["generator", "helpers"]
 
 [tool.uv]
 dev-dependencies = [
