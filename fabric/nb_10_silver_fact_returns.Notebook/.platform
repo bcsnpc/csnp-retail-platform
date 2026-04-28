@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_10_silver_fact_returns",
+    "description": "Bronze -> silver merge for fact_returns (SCD1, business key: return_key)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e547785c-c313-4c60-8ffe-91c2c078f22f"
+  }
+}
