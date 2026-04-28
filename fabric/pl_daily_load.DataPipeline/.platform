@@ -3,7 +3,7 @@
   "metadata": {
     "type": "DataPipeline",
     "displayName": "pl_daily_load",
-    "description": "Stub — orchestrates daily bronze→silver→gold→DQ; currently just a 1s Wait."
+    "description": "Daily pipeline: Generate → Validate_Bronze → Silver (14 parallel) → Gold (2 parallel) → DQ."
   },
   "config": {
     "version": "2.0",

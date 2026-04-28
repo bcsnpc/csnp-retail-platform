@@ -2,11 +2,212 @@
   "properties": {
     "activities": [
       {
-        "name": "Wait1",
-        "type": "Wait",
+        "name": "Generate",
+        "type": "TridentNotebook",
         "dependsOn": [],
+        "policy": { "timeout": "0.02:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
-          "waitTimeInSeconds": 1
+          "notebookId": "4b0fc6c6-92a5-40c9-b41a-75ea9eb407e9",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Validate_Bronze",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Generate", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "2779b92c-5590-47ea-8a86-d1b8df6c49fe",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_dim_date",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "a6b7d464-ecbd-42e7-b068-acfb933ee7fa",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_dim_geography",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "b9c8acc2-787c-4cab-be5f-55cc0f174a23",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_dim_store",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "1d511be5-cc95-4142-9b4f-d46615972fb7",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_dim_campaign",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "5396d86a-625e-4798-b2da-bac5007edf59",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_dim_channel",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "098893d7-56f8-4792-a156-0daf11c6e65c",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_dim_return_reason",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "48d3bb5a-93b7-42fd-9ff4-f56b4a6fb3e8",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_dim_product",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "887c32e3-369e-4fc6-9075-e673ab7f8b0c",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_dim_customer",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "c0d40223-4caa-419f-86f8-22e6e1534104",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_fact_sales",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "70e933ac-39e4-41b1-b050-da316bbc1d05",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_fact_returns",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "1a265eb8-0df6-4f2b-b3ee-81f010a8eae4",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_fact_sessions",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "59dae47a-d234-42b2-8040-2919493c7e99",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_fact_marketing_spend",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "ad1beac5-af80-4aa9-9944-b7f0c82c2ba3",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_fact_loyalty_events",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "15937f2b-b4d9-47fb-a5c1-2486a6ce7fc7",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Silver_fact_inventory_daily",
+        "type": "TridentNotebook",
+        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "policy": { "timeout": "0.02:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "c5a2fc3c-632c-4e13-82a2-c321ce034eaa",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Gold_Dims",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          { "activity": "Silver_dim_date",          "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_dim_geography",     "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_dim_store",         "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_dim_campaign",      "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_dim_channel",       "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_dim_return_reason", "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_dim_product",       "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_dim_customer",      "dependencyConditions": ["Succeeded"] }
+        ],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "eb5c6e97-c91b-499a-912c-805cff0c8235",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "Gold_Facts",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          { "activity": "Silver_fact_sales",           "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_fact_returns",         "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_fact_sessions",        "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_fact_marketing_spend", "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_fact_loyalty_events",  "dependencyConditions": ["Succeeded"] },
+          { "activity": "Silver_fact_inventory_daily", "dependencyConditions": ["Succeeded"] }
+        ],
+        "policy": { "timeout": "0.02:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "10dc0018-a625-4720-bf1d-5d2ab4dbdcec",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
+        }
+      },
+      {
+        "name": "DQ_Checkpoint",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          { "activity": "Gold_Dims",  "dependencyConditions": ["Succeeded"] },
+          { "activity": "Gold_Facts", "dependencyConditions": ["Succeeded"] }
+        ],
+        "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
+        "typeProperties": {
+          "notebookId": "701a3b35-de6d-4df7-a4a2-010704313f2f",
+          "workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"
         }
       }
     ]
