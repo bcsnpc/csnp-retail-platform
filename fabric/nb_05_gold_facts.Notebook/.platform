@@ -3,7 +3,7 @@
   "metadata": {
     "type": "Notebook",
     "displayName": "nb_05_gold_facts",
-    "description": "Stub — silver → gold fact build (sales, returns, sessions, etc.)."
+    "description": "Silver -> gold for all 6 facts (SCD1 on surrogate key)."
   },
   "config": {
     "version": "2.0",
