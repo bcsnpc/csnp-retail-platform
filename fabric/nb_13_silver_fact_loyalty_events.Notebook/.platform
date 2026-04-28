@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_13_silver_fact_loyalty_events",
+    "description": "Bronze -> silver merge for fact_loyalty_events (SCD1, business key: event_key)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "15cf0a0a-961e-4e19-a78d-80c83a4ae2a3"
+  }
+}

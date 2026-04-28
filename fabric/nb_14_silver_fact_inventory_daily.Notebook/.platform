@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_14_silver_fact_inventory_daily",
+    "description": "Bronze -> silver merge for fact_inventory_daily (SCD1, business key: inventory_key)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "67cc9d75-956c-4bc5-9189-402422d38b5f"
+  }
+}
