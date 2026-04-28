@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_11_silver_fact_sessions",
+    "description": "Bronze -> silver merge for fact_sessions (SCD1, business key: session_key)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "87f1ff34-d454-4281-90af-630467ed7cad"
+  }
+}

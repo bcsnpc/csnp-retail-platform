@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_12_silver_fact_marketing_spend",
+    "description": "Bronze -> silver merge for fact_marketing_spend (SCD1, business key: spend_key)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2263b715-c037-49ad-944d-80ee09294499"
+  }
+}
