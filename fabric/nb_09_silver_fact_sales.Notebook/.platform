@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_09_silver_fact_sales",
+    "description": "Bronze -> silver merge for fact_sales (SCD1, business key: sale_key)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a161a3f3-e397-4125-8f0b-170c52c505e3"
+  }
+}
