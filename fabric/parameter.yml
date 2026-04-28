@@ -24,11 +24,14 @@ find_replace:
       PROD: 'workspace_name: str = "CSNP_Prod"'
     item_type: "Notebook"
 
+  # Substitute the DEV workspace ID in pipeline-content.json for TEST/PROD.
+  # Notebook IDs are workspace-specific; TEST/PROD values must be filled in
+  # once those workspaces have the notebooks deployed.
+  - find_value: '"workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"'
+    replace_value:
+      DEV:  '"workspaceId": "23d7d6a1-7272-4793-9abd-5a31dc1f575a"'
+      TEST: '"workspaceId": "1aef2e26-2ebf-4dbc-8fa4-327bc04ff570"'
+      PROD: '"workspaceId": "a09f61df-f8b6-4448-bb7e-290142b72213"'
+    item_type: "DataPipeline"
+
 key_value_replace: []
-# Example shape for future VariableLibrary or DataPipeline parameterization:
-#   - find_key: $.variables[?(@.name=="environment_name")].value
-#     replace_value:
-#       DEV:  "DEV"
-#       TEST: "TEST"
-#       PROD: "PROD"
-#     item_type: "VariableLibrary"
