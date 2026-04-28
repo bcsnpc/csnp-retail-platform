@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_15_silver_dim_product",
+    "description": "Bronze -> silver merge for dim_product (SCD1 on surrogate key; SCD2 versions pre-built by generator)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a3f7c821-4d92-4e1b-8f35-6c0d9e2b1a74"
+  }
+}
