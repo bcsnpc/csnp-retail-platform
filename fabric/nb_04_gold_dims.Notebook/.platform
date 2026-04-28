@@ -3,7 +3,7 @@
   "metadata": {
     "type": "Notebook",
     "displayName": "nb_04_gold_dims",
-    "description": "Stub — silver → gold dimension build (SCD2 for product, customer)."
+    "description": "Silver -> gold for all 8 dims (SCD1 on surrogate key; SCD2 versions already in silver)."
   },
   "config": {
     "version": "2.0",
