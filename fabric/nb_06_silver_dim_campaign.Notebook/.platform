@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_06_silver_dim_campaign",
+    "description": "Bronze -> silver merge for dim_campaign (SCD1, business key: campaign_key)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c4051c00-3ac3-4593-beed-06b4cb3646f7"
+  }
+}
