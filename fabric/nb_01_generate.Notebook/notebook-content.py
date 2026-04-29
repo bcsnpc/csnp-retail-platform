@@ -145,7 +145,15 @@ def _append_bronze(new_df: pd.DataFrame, entity: str) -> int:
     path = BRONZE / entity / f"{entity}.parquet"
     if path.exists():
         existing = pd.read_parquet(path)
-        combined = pd.concat([existing, new_df], ignore_index=True)
+        # Align new_df dtypes to the existing schema so PyArrow doesn't reject the concat
+        new_aligned = new_df.copy()
+        for col in new_aligned.columns:
+            if col in existing.columns and existing[col].dtype != new_aligned[col].dtype:
+                try:
+                    new_aligned[col] = new_aligned[col].astype(existing[col].dtype)
+                except Exception:
+                    new_aligned[col] = pd.to_datetime(new_aligned[col]).dt.date if "date" in col else new_aligned[col]
+        combined = pd.concat([existing, new_aligned], ignore_index=True)
     else:
         combined = new_df.copy()
     path.parent.mkdir(parents=True, exist_ok=True)
