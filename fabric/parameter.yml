@@ -9,7 +9,7 @@
 # Lakehouses don't carry workspace- or environment-specific IDs in their
 # .platform files, so no replacements are needed yet.  Sections below are
 # placeholders showing the structure for when notebooks, pipelines, and
-# reporting layers land.
+# additional item types land.
 
 find_replace:
   # Substitute the workspace_name parameter cell assignment per environment.

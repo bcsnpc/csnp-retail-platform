@@ -3,7 +3,7 @@
   "metadata": {
     "type": "Lakehouse",
     "displayName": "CSNP_Gold",
-    "description": "Gold layer — star schema for reporting and the Fabric POC reporting layer."
+    "description": "Gold layer — star schema for reporting and Power BI."
   },
   "config": {
     "version": "2.0",

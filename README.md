@@ -1,11 +1,11 @@
 # CSNP & Co. — Retail Platform
 
-Synthetic retail dataset and Microsoft Fabric pipeline for testing [Fabric POC](https://fabric-poc.ai).
+Microsoft Fabric proof-of-concept using a synthetic retail dataset.
 
 CSNP & Co. is a fictional mid-market omnichannel apparel retailer. Three years of
 deterministic, pattern-rich transactional history across 142 stores, 320K customers,
-and 3.2K SKUs — purpose-built to exercise every Fabric POC visual and surface 14 planted
-insight stories.
+and 3.2K SKUs — purpose-built to exercise the full Fabric medallion pipeline and surface
+14 planted insight stories.
 
 ## Quick start
 
@@ -36,7 +36,7 @@ uv run pytest generator/tests/unit -v
 
 ```
 generator/          Python package: csnp-retail
-fabric/             Fabric notebooks, pipelines, reporting layer (Week 2+)
+fabric/             Fabric notebooks, pipelines, lakehouses (Bronze → Silver → Gold)
 dq/                 Great Expectations suites (Week 3+)
 deploy/             fabric-cicd deployment scripts (Week 3+)
 ```
