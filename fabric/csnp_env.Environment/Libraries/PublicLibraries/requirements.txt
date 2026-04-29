@@ -1,0 +1,2 @@
+faker>=25
+holidays>=0.46
