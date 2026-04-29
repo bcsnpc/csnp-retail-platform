@@ -34,7 +34,7 @@
       {
         "name": "Silver_dim_geography",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_dim_date", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "b9c8acc2-787c-4cab-be5f-55cc0f174a23",
@@ -44,7 +44,7 @@
       {
         "name": "Silver_dim_store",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_dim_geography", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "1d511be5-cc95-4142-9b4f-d46615972fb7",
@@ -54,7 +54,7 @@
       {
         "name": "Silver_dim_campaign",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_dim_store", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "5396d86a-625e-4798-b2da-bac5007edf59",
@@ -64,7 +64,7 @@
       {
         "name": "Silver_dim_channel",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_dim_campaign", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "098893d7-56f8-4792-a156-0daf11c6e65c",
@@ -74,7 +74,7 @@
       {
         "name": "Silver_dim_return_reason",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_dim_channel", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "48d3bb5a-93b7-42fd-9ff4-f56b4a6fb3e8",
@@ -84,7 +84,7 @@
       {
         "name": "Silver_dim_product",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_dim_return_reason", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "887c32e3-369e-4fc6-9075-e673ab7f8b0c",
@@ -94,7 +94,7 @@
       {
         "name": "Silver_dim_customer",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_dim_product", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "c0d40223-4caa-419f-86f8-22e6e1534104",
@@ -104,7 +104,7 @@
       {
         "name": "Silver_fact_sales",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_dim_customer", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "70e933ac-39e4-41b1-b050-da316bbc1d05",
@@ -114,7 +114,7 @@
       {
         "name": "Silver_fact_returns",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_fact_sales", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "1a265eb8-0df6-4f2b-b3ee-81f010a8eae4",
@@ -124,7 +124,7 @@
       {
         "name": "Silver_fact_sessions",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_fact_returns", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "59dae47a-d234-42b2-8040-2919493c7e99",
@@ -134,7 +134,7 @@
       {
         "name": "Silver_fact_marketing_spend",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_fact_sessions", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "ad1beac5-af80-4aa9-9944-b7f0c82c2ba3",
@@ -144,7 +144,7 @@
       {
         "name": "Silver_fact_loyalty_events",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_fact_marketing_spend", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "15937f2b-b4d9-47fb-a5c1-2486a6ce7fc7",
@@ -154,7 +154,7 @@
       {
         "name": "Silver_fact_inventory_daily",
         "type": "TridentNotebook",
-        "dependsOn": [{ "activity": "Validate_Bronze", "dependencyConditions": ["Succeeded"] }],
+        "dependsOn": [{ "activity": "Silver_fact_loyalty_events", "dependencyConditions": ["Succeeded"] }],
         "policy": { "timeout": "0.02:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
           "notebookId": "c5a2fc3c-632c-4e13-82a2-c321ce034eaa",
@@ -165,14 +165,7 @@
         "name": "Gold_Dims",
         "type": "TridentNotebook",
         "dependsOn": [
-          { "activity": "Silver_dim_date",          "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_dim_geography",     "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_dim_store",         "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_dim_campaign",      "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_dim_channel",       "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_dim_return_reason", "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_dim_product",       "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_dim_customer",      "dependencyConditions": ["Succeeded"] }
+          { "activity": "Silver_fact_inventory_daily", "dependencyConditions": ["Succeeded"] }
         ],
         "policy": { "timeout": "0.01:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
         "typeProperties": {
@@ -184,11 +177,6 @@
         "name": "Gold_Facts",
         "type": "TridentNotebook",
         "dependsOn": [
-          { "activity": "Silver_fact_sales",           "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_fact_returns",         "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_fact_sessions",        "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_fact_marketing_spend", "dependencyConditions": ["Succeeded"] },
-          { "activity": "Silver_fact_loyalty_events",  "dependencyConditions": ["Succeeded"] },
           { "activity": "Silver_fact_inventory_daily", "dependencyConditions": ["Succeeded"] }
         ],
         "policy": { "timeout": "0.02:00:00", "retry": 0, "retryIntervalInSeconds": 30 },
