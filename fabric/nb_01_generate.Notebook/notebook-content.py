@@ -162,10 +162,21 @@ def _generate_one_day(manifest: Manifest, target_date: date, config: GeneratorCo
         # Daily generator uses "segment"; backfill used "customer_segment"
         if "segment" in cust_delta.columns and "customer_segment" not in cust_delta.columns:
             cust_delta = cust_delta.rename(columns={"segment": "customer_segment"})
+        # Drop "segment" in all cases — generator may produce both columns
+        cust_delta = cust_delta.drop(columns=["segment"], errors="ignore")
         # Convert date strings to datetime.date objects to match existing parquet schema
         for _col in ["signup_date", "effective_date", "expiry_date"]:
             if _col in cust_delta.columns:
                 cust_delta[_col] = pd.to_datetime(cust_delta[_col], errors="coerce").dt.date
+
+    # One-time cleanup: remove stale "segment" column written by earlier buggy runs
+    _cust_path = BRONZE / "dim_customer" / "dim_customer.parquet"
+    if _cust_path.exists():
+        _cust_existing = pd.read_parquet(_cust_path)
+        if "segment" in _cust_existing.columns:
+            _cust_existing = _cust_existing.drop(columns=["segment"])
+            pq.write_table(pa.Table.from_pandas(_cust_existing, preserve_index=False), _cust_path)
+            print("Cleaned stale 'segment' column from bronze dim_customer parquet")
 
     _append_bronze(all_sales,    "fact_sales")
     _append_bronze(all_sessions, "fact_sessions")

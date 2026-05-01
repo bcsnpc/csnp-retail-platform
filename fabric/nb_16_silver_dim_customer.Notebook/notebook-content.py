@@ -39,7 +39,7 @@ source_system: str = "generator"
 from csnp_helpers import add_lineage_columns, merge_to_silver, onelake_files_path, validate_silver
 
 bronze_path = onelake_files_path(workspace_name, bronze_lakehouse, bronze_input_subpath)
-bronze_df = spark.read.parquet(bronze_path)
+bronze_df = spark.read.parquet(bronze_path).drop("segment")
 silver_df = add_lineage_columns(bronze_df, source_system)
 result = merge_to_silver(silver_df, silver_table_fqn, business_keys, strategy="scd1")
 print(result)
