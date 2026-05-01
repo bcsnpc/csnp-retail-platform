@@ -157,6 +157,13 @@ def _generate_one_day(manifest: Manifest, target_date: date, config: GeneratorCo
     all_sales    = pd.concat(list(sales_by_ch.values()), ignore_index=True) if sales_by_ch else pd.DataFrame()
     all_sessions = pd.concat([df for _, df in sessions], ignore_index=True) if sessions else pd.DataFrame()
 
+    # Convert date string columns in cust_delta to datetime.date objects so
+    # PyArrow schema matches the existing bronze parquet (object dtype but date values)
+    if len(cust_delta) > 0:
+        for _col in ["signup_date", "effective_date", "expiry_date"]:
+            if _col in cust_delta.columns:
+                cust_delta[_col] = pd.to_datetime(cust_delta[_col], errors="coerce").dt.date
+
     _append_bronze(all_sales,    "fact_sales")
     _append_bronze(all_sessions, "fact_sessions")
     _append_bronze(inventory,    "fact_inventory_daily")
