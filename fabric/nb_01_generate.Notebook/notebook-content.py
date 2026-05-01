@@ -157,9 +157,12 @@ def _generate_one_day(manifest: Manifest, target_date: date, config: GeneratorCo
     all_sales    = pd.concat(list(sales_by_ch.values()), ignore_index=True) if sales_by_ch else pd.DataFrame()
     all_sessions = pd.concat([df for _, df in sessions], ignore_index=True) if sessions else pd.DataFrame()
 
-    # Convert date string columns in cust_delta to datetime.date objects so
-    # PyArrow schema matches the existing bronze parquet (object dtype but date values)
+    # Align cust_delta schema to match the backfill bronze dim_customer columns
     if len(cust_delta) > 0:
+        # Daily generator uses "segment"; backfill used "customer_segment"
+        if "segment" in cust_delta.columns and "customer_segment" not in cust_delta.columns:
+            cust_delta = cust_delta.rename(columns={"segment": "customer_segment"})
+        # Convert date strings to datetime.date objects to match existing parquet schema
         for _col in ["signup_date", "effective_date", "expiry_date"]:
             if _col in cust_delta.columns:
                 cust_delta[_col] = pd.to_datetime(cust_delta[_col], errors="coerce").dt.date
