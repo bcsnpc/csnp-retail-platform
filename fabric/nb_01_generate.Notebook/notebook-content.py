@@ -121,24 +121,36 @@ _tmpdir = Path(tempfile.mkdtemp())
 
 # CELL ********************
 
+# Columns the daily generator produces that were never in the backfill/silver schema.
+# Listed here so _append_bronze strips them from both new and existing parquets.
+_STALE_BRONZE_COLS: dict[str, list[str]] = {
+    "fact_sales":   ["late_arrival_days"],
+    "dim_customer": ["segment"],
+}
+
+
 def _append_bronze(new_df: pd.DataFrame, entity: str) -> int:
     """Concat new rows onto the existing bronze flat parquet file."""
     if len(new_df) == 0:
         return 0
+    stale = _STALE_BRONZE_COLS.get(entity, [])
+    # Strip generator-only columns from incoming data
+    new_clean = new_df.drop(columns=[c for c in stale if c in new_df.columns], errors="ignore").copy()
     path = BRONZE / entity / f"{entity}.parquet"
     if path.exists():
         existing = pd.read_parquet(path)
-        new_aligned = new_df.copy()
-        for col in new_aligned.columns:
-            if col in existing.columns and existing[col].dtype != new_aligned[col].dtype:
+        # Strip the same stale columns from existing parquet (one-time cleanup per entity)
+        existing = existing.drop(columns=[c for c in stale if c in existing.columns], errors="ignore")
+        for col in new_clean.columns:
+            if col in existing.columns and existing[col].dtype != new_clean[col].dtype:
                 try:
-                    new_aligned[col] = new_aligned[col].astype(existing[col].dtype)
+                    new_clean[col] = new_clean[col].astype(existing[col].dtype)
                 except Exception:
                     if "date" in col:
-                        new_aligned[col] = pd.to_datetime(new_aligned[col]).dt.date
-        combined = pd.concat([existing, new_aligned], ignore_index=True)
+                        new_clean[col] = pd.to_datetime(new_clean[col], errors="coerce").dt.date
+        combined = pd.concat([existing, new_clean], ignore_index=True)
     else:
-        combined = new_df.copy()
+        combined = new_clean
     path.parent.mkdir(parents=True, exist_ok=True)
     pq.write_table(pa.Table.from_pandas(combined, preserve_index=False), path)
     return len(new_df)
@@ -168,15 +180,6 @@ def _generate_one_day(manifest: Manifest, target_date: date, config: GeneratorCo
         for _col in ["signup_date", "effective_date", "expiry_date"]:
             if _col in cust_delta.columns:
                 cust_delta[_col] = pd.to_datetime(cust_delta[_col], errors="coerce").dt.date
-
-    # One-time cleanup: remove stale "segment" column written by earlier buggy runs
-    _cust_path = BRONZE / "dim_customer" / "dim_customer.parquet"
-    if _cust_path.exists():
-        _cust_existing = pd.read_parquet(_cust_path)
-        if "segment" in _cust_existing.columns:
-            _cust_existing = _cust_existing.drop(columns=["segment"])
-            pq.write_table(pa.Table.from_pandas(_cust_existing, preserve_index=False), _cust_path)
-            print("Cleaned stale 'segment' column from bronze dim_customer parquet")
 
     _append_bronze(all_sales,    "fact_sales")
     _append_bronze(all_sessions, "fact_sessions")
